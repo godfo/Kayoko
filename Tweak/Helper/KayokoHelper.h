@@ -7,11 +7,13 @@
 
 #import "substrate.h"
 #import <UIKit/UIKit.h>
+#import "KayokoObserver.h"
 #import "../../Preferences/PreferenceKeys.h"
 #import <Cephei/HBPreferences.h>
 
 #define iOS15 [[[UIDevice currentDevice] systemVersion] floatValue] >= 15.0
 
+KayokoObserver* observer;
 BOOL shouldShowCustomSuggestions = NO;
 
 HBPreferences* preferences;

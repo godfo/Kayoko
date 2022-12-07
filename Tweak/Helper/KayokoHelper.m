@@ -195,6 +195,8 @@ __attribute((constructor)) static void initialize() {
         return;
     }
 
+    observer = [[KayokoObserver alloc] init];
+
     if (pfActivationMethod == kActivationMethodPredictionBar) {
         if (iOS15) {
             MSHookMessageEx(NSClassFromString(@"UIKeyboardAutocorrectionController"), @selector(setAutocorrectionList:), (IMP)&override_UIKeyboardAutocorrectionController_setAutocorrectionList, (IMP *)&orig_UIKeyboardAutocorrectionController_setAutocorrectionList);

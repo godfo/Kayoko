@@ -26,7 +26,7 @@ void override_UIStatusBarWindow_initWithFrame(UIStatusBarWindow* self, SEL _cmd,
 
 #pragma mark - Notification callbacks
 
-static void kayokod_pasteboard_changed_notification() {
+static void kayoko_observer_pasteboard_changed_notification() {
     [[PasteboardManager sharedInstance] pullPasteboardChanges];
 }
 
@@ -80,7 +80,7 @@ __attribute((constructor)) static void initialize() {
 
     MSHookMessageEx(NSClassFromString(@"UIStatusBarWindow"), @selector(initWithFrame:), (IMP)&override_UIStatusBarWindow_initWithFrame, (IMP *)&orig_UIStatusBarWindow_initWithFrame);
 
-    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)kayokod_pasteboard_changed_notification, (CFStringRef)@"dev.traurige.kayoko.daemon.pasteboard.changed", NULL, (CFNotificationSuspensionBehavior)kNilOptions);
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)kayoko_observer_pasteboard_changed_notification, (CFStringRef)@"dev.traurige.kayoko.observer.pasteboard.changed", NULL, (CFNotificationSuspensionBehavior)kNilOptions);
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)show, (CFStringRef)@"dev.traurige.kayoko.core.show", NULL, (CFNotificationSuspensionBehavior)kNilOptions);
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)hide, (CFStringRef)@"dev.traurige.kayoko.core.hide", NULL, (CFNotificationSuspensionBehavior)kNilOptions);
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)reload, (CFStringRef)@"dev.traurige.kayoko.core.reload", NULL, (CFNotificationSuspensionBehavior)kNilOptions);
